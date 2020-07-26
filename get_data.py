@@ -14,6 +14,3 @@ def get_state_list_options():
     state_to_code_map.drop([0], inplace = True)
     state_list_options = state_to_code_map.to_dict(orient='records')
     return state_list_options
-
-# print(get_data()['Total Deceased'][:10])
-# print(get_data().columns)
