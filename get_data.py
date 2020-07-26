@@ -7,6 +7,7 @@ def get_data():
 
 def get_state_list_options():
     district_wise = pd.read_csv('https://api.covid19india.org/csv/latest/district_wise.csv')
+    # return district_wise['State'].unique()
     state_to_code_map = pd.DataFrame()
     state_to_code_map['label'] = district_wise['State']
     state_to_code_map['value'] = district_wise['State_Code']
