@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.express as px
-from get_data import get_data
+from get_data import get_data, get_state_list_options
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -19,6 +19,11 @@ app.layout = html.Div(children=[
     dcc.Graph(
         id = 'example-graph',
         figure = fig
+    ),
+    html.Label('Dropdown'),
+    dcc.Dropdown(
+        options=get_state_list_options(),
+        value='AN'
     )
 ])
 
