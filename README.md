@@ -12,3 +12,4 @@
 - [] add card list to show the selected state's stats alongside the district
 - [] remove plotly navigate graph menu??
 - [] add links to github/data source/gmail at the bottom
+- [] set graph backgrounds to dark mode
