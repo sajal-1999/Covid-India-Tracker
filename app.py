@@ -7,6 +7,7 @@ import plotly.graph_objects as go
 # import plotly.express as px
 from get_data import get_data, get_state_list_options
 from totalgraph import india_graph
+from navbar import navbar, new_navbar
 
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -20,14 +21,12 @@ body = dbc.Container([
 
 app.layout = html.Div(#style={'backgroundColor': 'black'},
     children=[
+    new_navbar,
     html.H1('Hello user', style = {'textAlign': 'center', 'color': 'red'}),
     html.Div(children = '''
         Dash: A web application framework for Python.
     '''),
-    dcc.Graph(
-        id = 'example-graph',
-        # figure = get_graph
-    ),
+    body,
     html.Label('Dropdown'),
     dcc.Dropdown(
         options=get_state_list_options(),
