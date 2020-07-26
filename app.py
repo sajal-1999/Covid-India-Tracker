@@ -2,9 +2,8 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-# import plotly.express as px
 import plotly.graph_objects as go
-import plotly.express as px
+# import plotly.express as px
 from get_data import get_data, get_state_list_options
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
