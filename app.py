@@ -1,39 +1,32 @@
 import dash
+import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 # import plotly.express as px
 from get_data import get_data, get_state_list_options
+from totalgraph import india_graph
+from navbar import navbar, new_navbar
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
+app.title = "Covid India Tracker"
 
-# fig = px.line(get_data(), x = 'Date', y=['Total Confirmed', 'Total Recovered', 'Total Deceased'])
-fig = go.Figure()
-fig.add_trace(go.Scatter(x=get_data()['Date'], y=get_data()['Total Confirmed'], name='Total Cofirmed', line=dict(color='blue')))
-fig.add_trace(go.Scatter(x=get_data()['Date'], y=get_data()['Total Deceased'], name='Total Deceased', line=dict(color='red', dash='dot')))
-fig.add_trace(go.Scatter(x=get_data()['Date'], y=get_data()['Total Recovered'], name='Total Recovered', line=dict(color='green')))
-# fig.add_trace(go.Scatter(x=get_data()['Date'], y=get_data()['Total Confirmed'], line=dict(color='blue')))
+body = dbc.Container([
+    dbc.Row([india_graph])
+])
 
-fig.update_layout(
-    xaxis_title = 'Date',
-    yaxis_title = 'Cases',
-    title = 'India overall cases'
-#     plot_bgcolor="black"
-)
 
 app.layout = html.Div(#style={'backgroundColor': 'black'},
     children=[
+    new_navbar,
     html.H1('Hello user', style = {'textAlign': 'center', 'color': 'red'}),
     html.Div(children = '''
         Dash: A web application framework for Python.
     '''),
-    dcc.Graph(
-        id = 'example-graph',
-        figure = fig
-    ),
+    body,
     html.Label('Dropdown'),
     dcc.Dropdown(
         options=get_state_list_options(),
