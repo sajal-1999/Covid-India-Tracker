@@ -8,6 +8,7 @@ fig = go.Figure()
 fig.add_trace(go.Scatter(x=get_data()['Date'], y=get_data()['Total Confirmed'], name='Total Cofirmed', line=dict(color='blue')))
 fig.add_trace(go.Scatter(x=get_data()['Date'], y=get_data()['Total Deceased'], name='Total Deceased', line=dict(color='red', dash='dot')))
 fig.add_trace(go.Scatter(x=get_data()['Date'], y=get_data()['Total Recovered'], name='Total Recovered', line=dict(color='green')))
+fig.add_trace(go.Scatter(x=get_data()['Date'], y=get_data()['Active'], name='Total Active', line=dict(color='yellow')))
 # fig.add_trace(go.Scatter(x=get_data()['Date'], y=get_data()['Total Confirmed'], line=dict(color='blue')))
 
 fig.update_layout(
