@@ -1,13 +1,23 @@
 import dash_bootstrap_components as dbc
+from get_data import get_state_list
 
 email_bar = dbc.Row(
     [
         dbc.Col(dbc.Input(type="email", placeholder="Email")),
-        dbc.Col(dbc.Input(type="district", placeholder="District")),
+        dbc.Col(dbc.DropdownMenu(label="State", children=get_state_list())),
+        dbc.Col(dbc.DropdownMenu(label="district")),
         dbc.Col(
-            dbc.Button("Signup for daily updates", color="primary", className="ml-2"),
+            dbc.Button("Signup for daily updates", color="primary", className="ml-2", id="sign-up-button"),
             width="auto",
         ),
+        dbc.Toast(
+            "Select state and district details to get personalised mails",
+            id = "registeration-toast",
+            header = "Enter all details",
+            dismissable = True,
+            icon="danger",
+            style={'position': "fixed", 'top': 66, 'right': 10, ' width':350}
+        )
     ],
     no_gutters=True,
     className="ml-auto flex-nowrap mt-3 mt-md-0",
