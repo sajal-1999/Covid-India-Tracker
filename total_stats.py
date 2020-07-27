@@ -1,16 +1,8 @@
 import dash_bootstrap_components as dbc
-# import dash_core_components as dcc
 import dash_html_components as html
 from get_data import get_data
 
-df = get_data()
-# print(df[-1:])
-df = df[-1:]
-# df['Active'] = df['Total Confirmed'] - df['Total Recovered'] - df['Total Deceased']
-
-
-# make a dbc row with cards as columns
-# each card denotes 1 latest detail
+df = get_data()[-1:]
 
 confirmed = dbc.Card(
     dbc.CardBody([
@@ -51,9 +43,8 @@ death = dbc.Card(
 carddeck = dbc.CardDeck([confirmed, active, recovered, death], style={"width": "50rem"})
 
 cards = dbc.Row([
-    dbc.Col(carddeck)
-    ])
-    # , justify="center")
+    carddeck
+    ], justify="center")
 
 # cards = dbc.Row([
 #     dbc.Col(confirmed, width={"size": 1.5, "order": 1}),
