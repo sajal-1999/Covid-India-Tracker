@@ -14,12 +14,6 @@ from total_stats import cards
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 app.title = "Covid India Tracker"
 
-body = dbc.Container([
-    dbc.Row([cards, india_graph]),
-    # dbc.Row([choose_state, choose_district]),
-    # dbc.Row([state graph])
-])
-
 state_list = []
 for i in get_state_list():
     state_list.append(dbc.DropdownMenuItem(i))
@@ -29,25 +23,28 @@ state_name = 'Maharashtra' #Kept static for now. Need to fetch from state drop-d
 for i in get_state_to_district_mapping(state_name):
     district_list.append(dbc.DropdownMenuItem(i))
 
+
+top_row = dbc.Container([
+    dbc.Row([cards, india_graph]),
+    dbc.Row([
+        dbc.DropdownMenu(
+            label="Select State", id="state-selected", children=state_list, className="mb-3", right=True
+        ),
+        dbc.DropdownMenu(
+            label="Select District", id="district-selected", children=district_list, className="mb-3", right=True
+        ),
+    ], no_gutters=False,),
+    # dbc.Row([state graph])
+])
+
+
 app.layout = html.Div(#style={'backgroundColor': 'black'},
     children=[
-    new_navbar,
-    html.Br(),
-    # cards,
-    body,
-    html.Label('Dropdown'),
-    # dcc.Dropdown(
-    #     options=get_state_list_options(),
-    #     value='AN',
-    #     style = {'color': 'black', 'text': 'white'}
-    # )
-    dbc.DropdownMenu(
-            label="Select State", children=state_list, className="mb-3", right=True
-        ),
-    dbc.DropdownMenu(
-            label="Select District", children=district_list, className="mb-3", right=True
-        ),
-])
+        new_navbar,
+        html.Br(),
+        # cards,
+        top_row,
+    ])  
 
 if __name__ == '__main__':
     app.run_server(dev_tools_hot_reload=True, debug=True)
@@ -60,3 +57,11 @@ def open_toast(n):
     if n:
         return True
     return False
+
+
+
+# @app.callback(
+#     Output("district-selected", "children"),
+#     [Input("state-selected", "")]
+# )
+# def update_district():
