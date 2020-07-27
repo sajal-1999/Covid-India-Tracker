@@ -15,3 +15,7 @@ def get_state_list_options():
     state_to_code_map.drop([0], inplace = True)
     state_list_options = state_to_code_map.to_dict(orient='records')
     return state_list_options
+
+def get_state_list():
+    district_wise = pd.read_csv('https://api.covid19india.org/csv/latest/district_wise.csv')
+    return district_wise['State'].unique()

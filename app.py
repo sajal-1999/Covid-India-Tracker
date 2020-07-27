@@ -47,3 +47,12 @@ app.layout = html.Div(#style={'backgroundColor': 'black'},
 
 if __name__ == '__main__':
     app.run_server(dev_tools_hot_reload=True, debug=True)
+
+@app.callback(
+    Output("registeration-toast", "is_open"),
+    [Input("sign-up-button", "n_clicks")],
+)
+def open_toast(n=1):
+    if n:
+        return True
+    return False
