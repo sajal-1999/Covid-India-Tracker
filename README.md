@@ -13,3 +13,4 @@
 - [ ] remove plotly navigate graph menu??
 - [ ] add links to github/data source/gmail at the bottom
 - [ ] set graph backgrounds to dark mode
+- [ ] change textfield to drop-down menu in navbar
