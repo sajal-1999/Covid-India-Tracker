@@ -17,31 +17,35 @@ recovered = go.Scatter(x=get_data()['Date'], y=get_data()['Total Recovered'], na
 deceased = go.Scatter(x=get_data()['Date'], y=get_data()['Total Deceased'], name='Total Deceased', line=dict(color='#E74C3C', dash='dot'))
 
 fig = go.Figure(
-        data = [confirmed, active, recovered, deceased],
-        layout = go.Layout(
-            legend = dict(font=dict(color="#FFFFFF")),
-            title = 'India overall cases',
-            hovermode="x",
-            xaxis = dict(title = 'Date', 
-                        color="#e8eaed", 
-                        dtick=10,
-                        gridcolor='#5e5d5e',
-                        tickfont=dict(family="Times New Roman", color = "#e8eaed")),
-            yaxis = dict(title = 'Cases',
-                        color="#e8eaed",
-                        # nticks=10,
-                        gridcolor='#5e5d5e',
-                        tickfont=dict(family="Times New Roman", color = "#e8eaed")),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)',
-            titlefont=dict(color='#FFFFFF'))
-        )
+    data = [confirmed, active, recovered, deceased],
+    layout = go.Layout(
+        legend = dict(font=dict(color="#FFFFFF")),
+        title = 'India overall cases',
+        hovermode="x",
+        xaxis = dict(title = 'Date', 
+                    color="#e8eaed", 
+                    dtick=10,
+                    gridcolor='#5e5d5e',
+                    tickfont=dict(family="Times New Roman", color = "#e8eaed")),
+        yaxis = dict(title = 'Cases',
+                    color="#e8eaed",
+                    # nticks=10,
+                    gridcolor='#5e5d5e',
+                    tickfont=dict(family="Times New Roman", color = "#e8eaed")),
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        titlefont=dict(color='#FFFFFF')
+    )
+)
 
 
 total_graph = dcc.Graph(
     id='total_graph', 
     figure = fig,
-    config={"displayModeBar": False, "showTips": False}
-     )
+    config={
+        "displayModeBar": False, 
+        "showTips": False
+    }
+)
 
 india_graph = dbc.Col([total_graph])

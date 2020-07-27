@@ -11,6 +11,6 @@
 - [ ] add callback for navbar     -> arunima
 - [ ] decide graph type for district data and add it   -> sajal
 - [ ] add card list to show the selected state's stats alongside the district
-- [ ] remove plotly navigate graph menu??   -> arunima
+- [x] remove plotly navigate graph menu??   -> arunima
 - [ ] add links to github/data source/gmail at the bottom
-- [ ] set graph backgrounds to dark mode   -> arunima
+- [x] set graph backgrounds to dark mode   -> arunima
