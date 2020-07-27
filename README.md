@@ -17,5 +17,5 @@
 - [ ] change textfield to drop-down menu in navbar     -> arunima
 - [ ] decide graph type for district data and add it   -> sajal
 - [x] function to return state_to_district mapping     -> sajal
-- [ ] function to return state_data                    -> sajal
+- [x] function to return state_data                    -> sajal
 - [x] function to return district_data                 -> sajal
