@@ -5,7 +5,7 @@ email_bar = dbc.Row(
     [
         dbc.Col(dbc.Input(type="email", placeholder="Email")),
         dbc.Col(dbc.DropdownMenu(label="State", children=get_state_list())),
-        dbc.Col(dbc.DropdownMenu(label="district")),
+        dbc.Col(dbc.DropdownMenu(label="District")),
         dbc.Col(
             dbc.Button("Signup for daily updates", color="primary", className="ml-2", id="sign-up-button"),
             width="auto",
