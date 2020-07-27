@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output
 # import plotly.graph_objects as go
 # # import plotly.express as px
 
-from get_data import get_data, get_state_list_options, get_state_list
+from get_data import *
 from totalgraph import india_graph
 from navbar import navbar, new_navbar
 from total_stats import cards
@@ -20,9 +20,14 @@ body = dbc.Container([
     # dbc.Row([state graph])
 ])
 
-items = []
+state_list = []
 for i in get_state_list():
-    items.append(dbc.DropdownMenuItem(i))
+    state_list.append(dbc.DropdownMenuItem(i))
+
+district_list = []
+state_name = 'Maharashtra' #Kept static for now. Need to fetch from state drop-down
+for i in get_state_to_district_mapping(state_name):
+    district_list.append(dbc.DropdownMenuItem(i))
 
 app.layout = html.Div(#style={'backgroundColor': 'black'},
     children=[
@@ -37,7 +42,10 @@ app.layout = html.Div(#style={'backgroundColor': 'black'},
     #     style = {'color': 'black', 'text': 'white'}
     # )
     dbc.DropdownMenu(
-            label="Choose state", children=items, className="mb-3", right=True
+            label="Select State", children=state_list, className="mb-3", right=True
+        ),
+    dbc.DropdownMenu(
+            label="Select District", children=district_list, className="mb-3", right=True
         ),
 ])
 
