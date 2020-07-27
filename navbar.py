@@ -1,11 +1,19 @@
 import dash_bootstrap_components as dbc
-from get_data import get_state_list
+from get_data import get_state_list,  get_state_to_district_mapping
 
+state_list_nav = []
+for i in get_state_list():
+    state_list_nav.append(dbc.DropdownMenuItem(i))
+
+district_list = []
+state_name = 'Maharashtra' #Kept static for now. Need to fetch from state drop-down
+for i in get_state_to_district_mapping(state_name):
+    district_list.append(dbc.DropdownMenuItem(i))
 email_bar = dbc.Row(
     [
         dbc.Col(dbc.Input(type="email", placeholder="Email")),
-        dbc.Col(dbc.DropdownMenu(label="State", children=get_state_list())),
-        dbc.Col(dbc.DropdownMenu(label="District")),
+        dbc.Col(dbc.DropdownMenu(label="Select State", id="state-selected-nav", children=state_list_nav, right=True)),
+        dbc.Col(dbc.DropdownMenu(label="Select District", id="district-selected-nav", children=district_list, right=True)),
         dbc.Col(
             dbc.Button("Signup for daily updates", color="primary", className="ml-2", id="sign-up-button"),
             width="auto",
