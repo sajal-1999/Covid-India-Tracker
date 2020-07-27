@@ -10,7 +10,8 @@ confirmed = dbc.Card(
         html.P(df['Total Confirmed'], className="text-info")
     ]),
     color="primary",
-    outline = True
+    outline = True,
+    style = {"height": "6rem", "width": "10rem"}
 )
 
 active = dbc.Card(
@@ -19,7 +20,8 @@ active = dbc.Card(
         html.P(df['Active'], className="text-warning")
     ]),
     color="warning",
-    outline = True
+    outline = True,
+    style = {"height": "6rem", "width": "10rem"}
 )
 
 recovered = dbc.Card(
@@ -28,7 +30,8 @@ recovered = dbc.Card(
         html.P(df['Total Recovered'], className="text-success")
     ]),
     color="success",
-    outline = True
+    outline = True,
+    style = {"height": "6rem", "width": "10rem"}
 )
 
 death = dbc.Card(
@@ -37,14 +40,22 @@ death = dbc.Card(
         html.P(df['Total Deceased'], className="text-danger")
     ]),
     color="danger",
-    outline = True
+    outline = True,
+    style = {"height": "6rem", "width": "10rem"}
 )
 
-carddeck = dbc.CardDeck([confirmed, active, recovered, death], style={"width": "50rem"})
+cards = dbc.Col([
+    dbc.Row([confirmed], justify="center", no_gutters=False), html.Br(), 
+    dbc.Row([active], justify="center", no_gutters=False), html.Br(), 
+    dbc.Row([recovered], justify="center", no_gutters=False), html.Br(), 
+    dbc.Row([death], justify="center", no_gutters=False)
+    ], width={"size": 1.5}, align="center")
 
-cards = dbc.Row([
-    carddeck
-    ], justify="center")
+# carddeck = dbc.CardDeck([confirmed, active, recovered, death], style={"width": "50rem"})
+
+# cards = dbc.Row([
+#     carddeck
+#     ], justify="center")
 
 # cards = dbc.Row([
 #     dbc.Col(confirmed, width={"size": 1.5, "order": 1}),

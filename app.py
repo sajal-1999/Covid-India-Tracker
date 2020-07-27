@@ -3,8 +3,9 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-import plotly.graph_objects as go
-# import plotly.express as px
+# import plotly.graph_objects as go
+# # import plotly.express as px
+
 from get_data import get_data, get_state_list_options, get_state_list
 from totalgraph import india_graph
 from navbar import navbar, new_navbar
@@ -14,9 +15,9 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 app.title = "Covid India Tracker"
 
 body = dbc.Container([
-    dbc.Row([india_graph]),
+    dbc.Row([cards, india_graph]),
     # dbc.Row([choose_state, choose_district]),
-    # dbc.Row([state graph, district_graph])
+    # dbc.Row([state graph])
 ])
 
 items = []
@@ -27,7 +28,7 @@ app.layout = html.Div(#style={'backgroundColor': 'black'},
     children=[
     new_navbar,
     html.Br(),
-    cards,
+    # cards,
     body,
     html.Label('Dropdown'),
     # dcc.Dropdown(
