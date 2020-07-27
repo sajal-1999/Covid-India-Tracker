@@ -21,3 +21,11 @@ def get_state_list():
     district_wise = pd.read_csv('https://api.covid19india.org/csv/latest/district_wise.csv')
     district_wise.drop([0], inplace = True)
     return district_wise['State'].unique()
+
+def get_state_to_district_mapping(state_name):
+    district_mapping = pd.read_csv('https://api.covid19india.org/csv/latest/district_wise.csv')
+    district_mapping = district_mapping[['State_Code', 'State','District_Key', 'District']]
+    district_mapping.drop_duplicates(keep='first',inplace=True)
+    district_mapping = district_mapping[district_mapping['State']==state_name]
+    district_mapping = district_mapping[district_mapping['District']!='Other State']
+    return district_mapping
