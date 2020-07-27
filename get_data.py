@@ -29,3 +29,12 @@ def get_state_to_district_mapping(state_name):
     district_mapping = district_mapping[district_mapping['State']==state_name]
     district_mapping = district_mapping[district_mapping['District']!='Other State']
     return district_mapping
+
+def district_data_daily(state_name):
+    district_data = pd.read_csv('https://api.covid19india.org/csv/latest/district_wise.csv')
+    district_data = district_data[['State_Code', 'State','District_Key', 'District','Confirmed','Active','Recovered','Deceased']]
+    district_data.drop_duplicates(keep='first',inplace=True)
+    district_data = district_data[district_data['State']==state_name]
+    district_data = district_data[district_data['District']!='Other State']
+    district_data = district_data[district_data['District']!='Unknown']
+    return district_data

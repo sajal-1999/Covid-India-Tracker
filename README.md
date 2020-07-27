@@ -1,5 +1,5 @@
 # Covid India Tracker
- 
+
 ## A detailed graphical depiction of India's current Covid-19 stats.
 ---
 ### to-do list
@@ -16,6 +16,6 @@
 - [ ] change layout of India Graph                     -> arunima
 - [ ] change textfield to drop-down menu in navbar     -> arunima
 - [ ] decide graph type for district data and add it   -> sajal
-- [ ] function to return state_to_district mapping     -> sajal
+- [x] function to return state_to_district mapping     -> sajal
 - [ ] function to return state_data                    -> sajal
-- [ ] function to return district_data                 -> sajal
+- [x] function to return district_data                 -> sajal
