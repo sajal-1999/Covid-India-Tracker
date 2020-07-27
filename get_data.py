@@ -19,4 +19,5 @@ def get_state_list_options():
 
 def get_state_list():
     district_wise = pd.read_csv('https://api.covid19india.org/csv/latest/district_wise.csv')
+    district_wise.drop([0], inplace = True)
     return district_wise['State'].unique()
