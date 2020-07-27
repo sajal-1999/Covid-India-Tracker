@@ -14,3 +14,5 @@
 - [x] remove plotly navigate graph menu??   -> arunima
 - [ ] add links to github/data source/gmail at the bottom
 - [x] set graph backgrounds to dark mode   -> arunima
+- [ ] change textfield to drop-down menu in navbar
+ 
