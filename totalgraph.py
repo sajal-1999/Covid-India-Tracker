@@ -15,7 +15,7 @@ active = go.Scatter(
     y=get_data()['Active'], 
     name='Total Active', 
     hovertemplate = 'Active: %{y}<extra></extra>',
-    line=dict(color='#F39C12')
+    line=dict(color='#E74C3C')
 )
 recovered = go.Scatter(
     x=get_data()['Date'], 
@@ -29,7 +29,7 @@ deceased = go.Scatter(
     y=get_data()['Total Deceased'], 
     name='Total Deceased',
     hovertemplate = 'Deceased: %{y}<extra></extra>',
-    line=dict(color='#E74C3C')
+    line=dict(color='#adb5bd')
 )
 
 fig = go.Figure(
@@ -41,6 +41,9 @@ fig = go.Figure(
                     color="#e8eaed", 
                     dtick=10,
                     gridcolor='#5e5d5e',
+                    # linecolor='black',
+                    zeroline=True,
+                    zerolinecolor='white',
                     tickfont=dict(family="Times New Roman", color = "#e8eaed")),
         yaxis = dict(title = 'Cases',
                     color="#e8eaed",

@@ -16,10 +16,10 @@ confirmed = dbc.Card(
 
 active = dbc.Card(
     dbc.CardBody([
-        html.H4("Active", className="text-warning"),
-        html.P(df['Active'], className="text-warning")
+        html.H4("Active", className="text-danger"),
+        html.P(df['Active'], className="text-danger")
     ]),
-    color="warning",
+    color="danger",
     outline = True,
     style = {"height": "6rem", "width": "10rem"}
 )
@@ -36,10 +36,10 @@ recovered = dbc.Card(
 
 death = dbc.Card(
     dbc.CardBody([
-        html.H4("Deaths", className="text-danger"),
-        html.P(df['Total Deceased'], className="text-danger")
+        html.H4("Deaths", className="text-light"),
+        html.P(df['Total Deceased'], className="text-light")
     ]),
-    color="danger",
+    color="light",
     outline = True,
     style = {"height": "6rem", "width": "10rem"}
 )
