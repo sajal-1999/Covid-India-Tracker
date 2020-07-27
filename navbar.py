@@ -16,6 +16,19 @@ email_bar = dbc.Row(
 
 new_navbar = dbc.Navbar(
     [
+        # html.A(
+        #     # Use row and col to control vertical alignment of logo / brand
+        #     dbc.Row(
+        #         [
+        #             dbc.Col(html.Img(src="filename.png", height="30px")),
+        #             dbc.Col(dbc.NavbarBrand("Navbar", className="ml-2")),
+        #         ],
+        #         align="center",
+        #         no_gutters=True,
+        #     ),
+        #     href="https://plot.ly",
+        # ),
+
         dbc.NavbarBrand("Covid India Tracker", className="ml-2"),
         dbc.Collapse(email_bar, id="navbar-collapse", navbar=True)
     ],
