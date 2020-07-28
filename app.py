@@ -4,15 +4,12 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.graph_objects as go
-# # import plotly.express as px
 
 from get_data import *
-# from totalgraph import india_graph
 from navbar import new_navbar
-from total_stats import cards
-from make_graph import make_graph
+from total_stats import cards, cards_lower, make_card
+from make_graph import make_graph, lower_graph, total_graph
 from select_graph_att import state_dcc, district_dcc
-from lower_graph import lower_graph, total_graph
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 app.title = "Covid India Tracker"
@@ -25,7 +22,7 @@ second_row = dbc.Container([
     dbc.Row(html.H3(children = "State & District Status"), justify = "center"),
     dbc.Row(html.Br()),
     dbc.Row([state_dcc, district_dcc], justify='center'),
-    dbc.Row([cards, lower_graph])
+    dbc.Row([cards_lower, lower_graph])
 ])
 
 app.layout = html.Div(
@@ -35,6 +32,7 @@ app.layout = html.Div(
         top_row,
         html.Br(),
         second_row,
+        html.Br()
     ])
 
 # @app.callback(
@@ -48,11 +46,28 @@ app.layout = html.Div(
 
 
 @app.callback(
-    Output("district-selected-dcc", "options"),
+    [Output("district-selected-dcc", "options"),
+    Output("lower_card", "children")],
     [Input("state-selected-dcc", "value")]
 )
 def update_district(state_name):
-    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)]
+    df_1 = state_data_daily(state_name)[-1:]
+    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)],[dbc.Row([
+    dbc.Col([
+        dbc.Row([make_card(df_1, "Confirmed", "info")], 
+            justify="center", 
+            no_gutters=False), html.Br(), 
+        dbc.Row([make_card(df_1, "Active", "danger")], 
+            justify="center", 
+            no_gutters=False)]),
+    dbc.Col([
+        dbc.Row([make_card(df_1, "Recovered", "success")], 
+            justify="center", 
+            no_gutters=False), html.Br(), 
+        dbc.Row([make_card(df_1, "Deceased", "light")], 
+            justify="center", 
+            no_gutters=False)])
+    ])]
 
 @app.callback(
     Output("district-selected-nav", "options"),
@@ -61,7 +76,13 @@ def update_district(state_name):
 def update_district_nav(state_name_nav):
     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
 
-
+# @app.callback(
+#     ,
+#     [Input("state-selected-dcc", "value")]
+# )
+# def update_district(state_name):
+    
+#     return 
 
 
 @app.callback(
