@@ -16,26 +16,26 @@ for i in get_state_to_district_mapping(state_name):
 
 state = dbc.InputGroup([
     dbc.DropdownMenu(
-        label="Select State", 
-        id="state-selected", 
-        children=state_list, 
-        className="mb-3", 
+        label="Select State",
+        id="state-selected",
+        children=state_list,
+        className="mb-3",
         right=True
 )])
 
 district = dbc.InputGroup([
     dbc.DropdownMenu(
-        label="Select District", 
-        id="district-selected", 
-        children=district_list, 
-        className="mb-3", 
+        label="Select District",
+        id="district-selected",
+        children=district_list,
+        className="mb-3",
         right=True
 )])
 
 
 state_dcc = dbc.Col([
     dcc.Dropdown(
-        id="state-selected-dcc", 
+        id="state-selected-dcc",
         value='Delhi',
         clearable=False,
         style=dict(width = '250px', color="black"),
