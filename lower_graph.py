@@ -3,14 +3,22 @@ import dash_core_components as dcc
 import plotly.graph_objs as go
 from get_data import state_data_daily
 
-# callback ---
-# fig.add_trace(go.Scatter())
-# fig.update_traces(marker=dict(color="RoyalBlue"),
-                #   selector=dict(type="bar"))
-# 
+def get_graph_data(df, att, color_code):
+    return go.Scatter(
+        x=df['Date'], 
+        y=df[att], 
+        name='Total' + att, 
+        hovertemplate = att + ': %{y}<extra></extra>',
+        line=dict(color=color_code))
 
-def make_graph():
+def make_graph(df, state_name):
     fig = go.Figure(
+        data = [
+            get_graph_data(df, 'Confirmed', '#3498DB'),
+            get_graph_data(df, 'Active', '#E74C3C'),
+            get_graph_data(df, 'Recovered', '#00bc8c'),
+            get_graph_data(df, 'Deceased', '#adb5bd'),
+        ],
         layout = go.Layout(
             legend = dict(font=dict(color="#FFFFFF")),
             # title = 'India overall cases',
@@ -32,41 +40,12 @@ def make_graph():
             titlefont=dict(color='#FFFFFF')
         )
     )
-
-    df = state_data_daily("Delhi")
-    fig.add_trace(go.Scatter(
-        x=df['Date'], 
-        y=df['Confirmed'], 
-        name='Total Confirmed', 
-        hovertemplate = 'Confirmed: %{y}<extra></extra>',
-        line=dict(color='#3498DB')
-    ))
-    fig.add_trace(go.Scatter(
-        x=df['Date'], 
-        y=df['Active'], 
-        name='Total Active', 
-        hovertemplate = 'Active: %{y}<extra></extra>',
-        line=dict(color='#E74C3C')
-    ))
-    fig.add_trace(go.Scatter(
-        x=df['Date'], 
-        y=df['Recovered'],  
-        name='Total Recovered',
-        hovertemplate = 'Recovered: %{y}<extra></extra>',
-        line=dict(color='#00bc8c')
-    ))
-    fig.add_trace(go.Scatter(
-        x=df['Date'], 
-        y=df['Deceased'], 
-        name='Total Deceased',
-        hovertemplate = 'Deceased: %{y}<extra></extra>',
-        line=dict(color='#adb5bd')
-    ))
     return fig
 
+df = state_data_daily("Delhi")
 lower_graph = dcc.Graph(
     id='lower_graph',
-    figure=make_graph(),
+    figure=make_graph(df, "Delhi"),
     config={
         "displayModeBar": False, 
         "showTips": False
