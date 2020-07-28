@@ -50,8 +50,8 @@ app.layout = html.Div(#style={'backgroundColor': 'black'},
     Output("district-selected-dcc", "options"),
     [Input("state-selected-dcc", "value")]
 )
-def update_district(state_name_graph):
-    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_graph)]
+def update_district(state_name):
+    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)]
 
 @app.callback(
     Output("district-selected-nav", "options"),
@@ -69,13 +69,14 @@ def update_district_nav(state_name_nav):
     Input("district-selected-dcc", "value")]
 )
 def update_graph2(*args):
-    triggered_name = dash.callback_context.triggered[0]['prop_id']
+    triggered_name = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
+    # print(triggered_name)
     triggered_value = dash.callback_context.triggered[0]['value']
-    # for (input_name, input_value), state_value in zip(dash.callback_context.inputs.items(),
-    #                                                   dash.callback_context.states.values()):
+    # print(triggered_value)
     if triggered_name == 'state-selected-dcc':
-            df = state_data_daily(triggered_value)
-            return make_graph(df, triggered_value)
+        # print("here")
+        df = state_data_daily(triggered_value)
+        return make_graph(df, triggered_value)
     else:
             df = district_data_daily(triggered_value)
             return make_graph(df, triggered_value)
