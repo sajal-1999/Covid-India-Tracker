@@ -14,14 +14,15 @@
 - [x] change textfield to drop-down menu in navbar
 - [x] initial callback for district dropdown menu
 - [x] add second graph based on state selected
-- [ ] add padding to total stats display and center it
-- [ ] decide upon dropdown menu displays (dbc vs dcc)
-- [ ] add callback for navbar dropdown menus
-- [ ] fix the navbar toast
-- [ ] resize graph
-- [ ] set initial 2nd graph display
-- [ ] modify 2nd graph to display update_trace funtion
-- [ ] optimize codes for 2nd graph with well defined functions
-- [ ] add callback for selected district
+- [x] decide upon dropdown menu displays (dbc vs dcc)
+- [x] add callback for navbar dropdown menus
+- [x] resize graph
+- [x] set initial 2nd graph display
+- [x] modify 2nd graph to display update_trace funtion
+- [x] optimize codes for 2nd graph
+- [x] add callback for selected district
 - [ ] add card list to show the selected state's stats alongside the district
 - [ ] add links to github/data source/gmail at the bottom
+- [ ] add padding to total stats display and center it
+- [ ] fix the navbar toast
+- [ ] integrate mailing list
