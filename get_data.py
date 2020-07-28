@@ -47,8 +47,8 @@ def district_data_daily(district_name):
 
 def state_data_daily(state_name):
     state_data = pd.read_csv('https://api.covid19india.org/csv/latest/states.csv')
-    state_data = state_data[['Date', 'State', 'Confirmed','Recovered','Deceased','Migrated']]
-    state_data['Active'] = state_data['Confirmed'] - state_data['Recovered'] - state_data['Deceased'] - state_data['Migrated']
+    state_data = state_data[['Date', 'State', 'Confirmed','Recovered','Deceased','Other']]
+    state_data['Active'] = state_data['Confirmed'] - state_data['Recovered'] - state_data['Deceased'] - state_data['Other']
     state_data.drop_duplicates(keep='first',inplace=True)
     state_data = state_data[state_data['State']==state_name]
     return state_data
