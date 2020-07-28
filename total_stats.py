@@ -4,25 +4,38 @@ from get_data import get_data
 
 df = get_data()[-1:]
 
-confirmed = dbc.Card(
-    dbc.CardBody([
-        html.H4("Confirmed", className="text-info"),
-        html.P(df['Total Confirmed'], className="text-info")
-    ]),
-    color="primary",
-    outline = True,
-    style = {"height": "6rem", "width": "10rem"}
-)
+def make_card(df, card_name, color):
+    return dbc.Card(
+        dbc.CardBody([
+            html.H4(card_name, className="text-"+color),
+            html.P(df['Total ' + card_name], className="text-"+color)
+        ]),
+        color=color,
+        outline = True,
+        style = {"height": "6rem", "width": "10rem"}
+    )
 
-active = dbc.Card(
-    dbc.CardBody([
-        html.H4("Active", className="text-danger"),
-        html.P(df['Active'], className="text-danger")
-    ]),
-    color="danger",
-    outline = True,
-    style = {"height": "6rem", "width": "10rem"}
-)
+confirmed = make_card(df, "Confirmed", "info")
+active = make_card(df, "Active", "danger")
+# confirmed = dbc.Card(
+#     dbc.CardBody([
+#         html.H4("Confirmed", className="text-info"),
+#         html.P(df['Total Confirmed'], className="text-info")
+#     ]),
+#     color="info",
+#     outline = True,
+#     style = {"height": "6rem", "width": "10rem"}
+# )
+
+# active = dbc.Card(
+#     dbc.CardBody([
+#         html.H4("Active", className="text-danger"),
+#         html.P(df['Active'], className="text-danger")
+#     ]),
+#     color="danger",
+#     outline = True,
+#     style = {"height": "6rem", "width": "10rem"}
+# )
 
 recovered = dbc.Card(
     dbc.CardBody([
