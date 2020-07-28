@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 
 from get_data import *
 from totalgraph import india_graph
-from navbar import navbar, new_navbar
+from navbar import *
 from total_stats import cards
 from select_graph_att import *
 from lower_graph import detailed_graph
@@ -34,7 +34,7 @@ app.layout = html.Div(#style={'backgroundColor': 'black'},
         top_row,
         html.Br(),
         second_row,
-    ])  
+    ])
 
 # @app.callback(
 #     Output("registeration-toast", "is_open"),
@@ -50,15 +50,23 @@ app.layout = html.Div(#style={'backgroundColor': 'black'},
     Output("district-selected-dcc", "options"),
     [Input("state-selected-dcc", "value")]
 )
-def update_district(state_name11):
-    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name11)]
+def update_district(state_name_graph):
+    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_graph)]
+
+@app.callback(
+    Output("district-selected-nav", "options"),
+    [Input("state-selected-nav", "value")]
+)
+def update_district_nav(state_name_nav):
+    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
+
 
 # @app.callback(
 #     Output("lower_graph", "figure"),
 #     [Input("state-selected-dcc", "value")]
 # )
 # def update_graph2(state_name11):
-    
+
 #     # fig.update_traces(marker=dict(color="RoyalBlue"),
 #     #                 selector=dict(name="bar"))
 #     # return fig
@@ -67,6 +75,6 @@ def update_district(state_name11):
 
 
 
-    
+
 if __name__ == '__main__':
     app.run_server(dev_tools_hot_reload=True, debug=True)
