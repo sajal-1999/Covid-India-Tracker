@@ -1,5 +1,6 @@
 import dash_core_components as dcc
 import plotly.graph_objs as go
+from get_data import state_data_daily, get_data
 
 def get_graph_data(df, att, color_code):
     return go.Scatter(
@@ -40,3 +41,24 @@ def make_graph(df, region):
         )
     )
     return fig
+
+def get_graph():
+    pass
+
+lower_graph = dcc.Graph(
+    id='lower_graph',
+    figure=make_graph(state_data_daily("Delhi"), "Delhi"),
+    config={
+        "displayModeBar": False, 
+        "showTips": False
+    }
+)
+
+total_graph = dcc.Graph(
+    id='total_graph', 
+    figure = make_graph(get_data(), "India"),
+    config={
+        "displayModeBar": False, 
+        "showTips": False
+    }
+)
