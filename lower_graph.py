@@ -8,10 +8,11 @@ def get_graph_data(df, att, color_code):
         x=df['Date'], 
         y=df[att], 
         name='Total' + att, 
+        connectgaps = True,
         hovertemplate = att + ': %{y}<extra></extra>',
         line=dict(color=color_code))
 
-def make_graph(df, state_name):
+def make_graph(df, region):
     fig = go.Figure(
         data = [
             get_graph_data(df, 'Confirmed', '#3498DB'),
@@ -21,7 +22,7 @@ def make_graph(df, state_name):
         ],
         layout = go.Layout(
             legend = dict(font=dict(color="#FFFFFF")),
-            # title = 'India overall cases',
+            title = region + ' cummulative cases',
             xaxis = dict(title = 'Date', 
                         color="#e8eaed", 
                         # dtick=10,
