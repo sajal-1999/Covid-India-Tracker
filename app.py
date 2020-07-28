@@ -11,7 +11,7 @@ from totalgraph import india_graph
 from navbar import navbar, new_navbar
 from total_stats import cards
 from select_graph_att import *
-from lower_graph import detailed_graph, fig
+from lower_graph import detailed_graph
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 app.title = "Covid India Tracker"
@@ -53,43 +53,16 @@ app.layout = html.Div(#style={'backgroundColor': 'black'},
 def update_district(state_name11):
     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name11)]
 
-@app.callback(
-    Output("lower_graph", "figure"),
-    [Input("state-selected-dcc", "value")]
-)
-def update_graph2(state_name11):
-    df = state_data_daily(state_name11)
-    fig.add_trace(go.Scatter(
-        x=df['Date'], 
-        y=df['Confirmed'], 
-        name='Total Confirmed', 
-        hovertemplate = 'Confirmed: %{y}<extra></extra>',
-        line=dict(color='#3498DB')
-    ))
-    fig.add_trace(go.Scatter(
-        x=df['Date'], 
-        y=df['Active'], 
-        name='Total Active', 
-        hovertemplate = 'Active: %{y}<extra></extra>',
-        line=dict(color='#E74C3C')
-    ))
-    fig.add_trace(go.Scatter(
-        x=df['Date'], 
-        y=df['Recovered'],  
-        name='Total Recovered',
-        hovertemplate = 'Recovered: %{y}<extra></extra>',
-        line=dict(color='#00bc8c')
-    ))
-    fig.add_trace(go.Scatter(
-        x=df['Date'], 
-        y=df['Deceased'], 
-        name='Total Deceased',
-        hovertemplate = 'Deceased: %{y}<extra></extra>',
-        line=dict(color='#adb5bd')
-    ))
-    # fig.update_traces(marker=dict(color="RoyalBlue"),
-    #                 selector=dict(name="bar"))
-    return fig
+# @app.callback(
+#     Output("lower_graph", "figure"),
+#     [Input("state-selected-dcc", "value")]
+# )
+# def update_graph2(state_name11):
+    
+#     # fig.update_traces(marker=dict(color="RoyalBlue"),
+#     #                 selector=dict(name="bar"))
+#     # return fig
+#     pass
 
 
 
