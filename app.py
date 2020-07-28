@@ -11,7 +11,7 @@ from totalgraph import india_graph
 from navbar import *
 from total_stats import cards
 from select_graph_att import *
-from lower_graph import detailed_graph
+from lower_graph import detailed_graph, make_graph
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 app.title = "Covid India Tracker"
@@ -61,18 +61,24 @@ def update_district_nav(state_name_nav):
     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
 
 
-# @app.callback(
-#     Output("lower_graph", "figure"),
-#     [Input("state-selected-dcc", "value")]
-# )
-# def update_graph2(state_name11):
-
-#     # fig.update_traces(marker=dict(color="RoyalBlue"),
-#     #                 selector=dict(name="bar"))
-#     # return fig
-#     pass
 
 
+@app.callback(
+    Output("lower_graph", "figure"),
+    [Input("state-selected-dcc", "value"),
+    Input("district-selected-dcc", "value")]
+)
+def update_graph2(*args):
+    triggered_name = dash.callback_context.triggered[0]['prop_id']
+    triggered_value = dash.callback_context.triggered[0]['value']
+    # for (input_name, input_value), state_value in zip(dash.callback_context.inputs.items(),
+    #                                                   dash.callback_context.states.values()):
+    if triggered_name == 'state-selected-dcc':
+            df = state_data_daily(triggered_value)
+            return make_graph(df, triggered_value)
+    else:
+            df = district_data_daily(triggered_value)
+            return make_graph(df, triggered_value)
 
 
 

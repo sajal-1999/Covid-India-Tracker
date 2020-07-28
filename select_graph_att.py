@@ -37,6 +37,7 @@ state_dcc = dbc.Col([
     dcc.Dropdown(
         id="state-selected-dcc",
         value='Delhi',
+        clearable=False,
         style=dict(width = '250px', color="black"),
         options=[{'label':state_name, 'value':state_name} for state_name in get_state_list()]
     )])
@@ -44,6 +45,7 @@ state_dcc = dbc.Col([
 district_dcc = dbc.Col([
     dcc.Dropdown(
         id="district-selected-dcc",
+        clearable=False,
         # className = "mb-3",
         style=dict(width = '250px', color="black"),
         # options=[{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)]
