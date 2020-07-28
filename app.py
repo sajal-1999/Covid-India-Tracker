@@ -1,15 +1,15 @@
 import dash
 import dash_bootstrap_components as dbc
-import dash_core_components as dcc
+# import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
 
 from get_data import *
 from navbar import new_navbar
 from total_stats import cards, cards_lower, make_card
 from make_graph import make_graph, lower_graph, total_graph
-from select_graph_att import state_dcc, district_dcc
+from select_graph_att import state, district
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
 app.title = "Covid India Tracker"
@@ -21,7 +21,7 @@ top_row = dbc.Container([
 second_row = dbc.Container([
     dbc.Row(html.H3(children = "State & District Status"), justify = "center"),
     dbc.Row(html.Br()),
-    dbc.Row([state_dcc, district_dcc], justify='center'),
+    dbc.Row([state, district], justify='center'),
     dbc.Row([cards_lower, lower_graph])
 ])
 
@@ -46,9 +46,9 @@ app.layout = html.Div(
 
 
 @app.callback(
-    [Output("district-selected-dcc", "options"),
+    [Output("district-selected", "options"),
     Output("lower_card", "children")],
-    [Input("state-selected-dcc", "value")]
+    [Input("state-selected", "value")]
 )
 def update_district(state_name):
     df_1 = state_data_daily(state_name)[-1:]
@@ -76,27 +76,18 @@ def update_district(state_name):
 def update_district_nav(state_name_nav):
     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
 
-# @app.callback(
-#     ,
-#     [Input("state-selected-dcc", "value")]
-# )
-# def update_district(state_name):
-    
-#     return 
-
-
 @app.callback(
     Output("lower_graph", "figure"),
-    [Input("state-selected-dcc", "value"),
-    Input("district-selected-dcc", "value")]
+    [Input("state-selected", "value"),
+    Input("district-selected", "value")]
 )
-def update_graph2(*args):
+def update_graph(*args):
     triggered_name = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
     triggered_value = dash.callback_context.triggered[0]['value']
     if not dash.callback_context.triggered:
         df = state_data_daily("Delhi")
         return make_graph(df, "Delhi")
-    if triggered_name == 'state-selected-dcc':
+    if triggered_name == 'state-selected':
         df = state_data_daily(triggered_value)
         return make_graph(df, triggered_value)
     else:
