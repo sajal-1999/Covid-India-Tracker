@@ -6,7 +6,7 @@ from get_data import get_data
 confirmed = go.Scatter(
     x=get_data()['Date'], 
     y=get_data()['Total Confirmed'], 
-    name='Total Cofirmed', 
+    name='Total Confirmed', 
     hovertemplate = 'Confirmed: %{y}<extra></extra>',
     line=dict(color='#3498DB')
 )
@@ -41,14 +41,13 @@ fig = go.Figure(
                     color="#e8eaed", 
                     dtick=10,
                     gridcolor='#5e5d5e',
-                    # linecolor='black',
-                    zeroline=True,
-                    zerolinecolor='white',
                     tickfont=dict(family="Times New Roman", color = "#e8eaed")),
         yaxis = dict(title = 'Cases',
                     color="#e8eaed",
                     # nticks=10,
                     gridcolor='#5e5d5e',
+                    zeroline=True,
+                    zerolinecolor='white',
                     tickfont=dict(family="Times New Roman", color = "#e8eaed")),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
