@@ -3,7 +3,10 @@ import pandas as pd
 
 def get_data():
     df = pd.read_csv("https://api.covid19india.org/csv/latest/case_time_series.csv")
-    df['Total Active'] = df['Total Confirmed'] - df['Total Recovered'] - df['Total Deceased']
+    df['Active'] = df['Total Confirmed'] - df['Total Recovered'] - df['Total Deceased']
+    df.rename(columns = {'Total Confirmed':'Confirmed'}, inplace = True)
+    df.rename(columns = {'Total Recovered':'Recovered'}, inplace = True)
+    df.rename(columns = {'Total Deceased':'Deceased'}, inplace = True)
     return df[-100:]
 
 # def get_state_list_options():

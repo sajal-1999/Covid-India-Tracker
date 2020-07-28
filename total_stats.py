@@ -16,17 +16,17 @@ def make_card(df, card_name, color):
     )
 
 cards = dbc.Col([
-    dbc.Row([make_card(df, "Confirmed", "info")], 
-        justify="center", 
-        no_gutters=False), html.Br(), 
-    dbc.Row([make_card(df, "Active", "danger")], 
-        justify="center", 
-        no_gutters=False), html.Br(), 
-    dbc.Row([make_card(df, "Recovered", "success")], 
-        justify="center", 
-        no_gutters=False), html.Br(), 
-    dbc.Row([make_card(df, "Deceased", "light")], 
-        justify="center", 
+    dbc.Row([make_card(df, "Confirmed", "info")],
+        justify="center",
+        no_gutters=False), html.Br(),
+    dbc.Row([make_card(df, "Active", "danger")],
+        justify="center",
+        no_gutters=False), html.Br(),
+    dbc.Row([make_card(df, "Recovered", "success")],
+        justify="center",
+        no_gutters=False), html.Br(),
+    dbc.Row([make_card(df, "Deceased", "light")],
+        justify="center",
         no_gutters=False)
     ], width={"size": 1.25}, align="center")
 
@@ -54,7 +54,7 @@ cards_lower = dbc.Col([
 
 # cards = dbc.Row([
 #     dbc.Col(confirmed, width={"size": 1.5, "order": 1}),
-#     dbc.Col(active, width={"size": 1.5, "order": 2,}), 
+#     dbc.Col(active, width={"size": 1.5, "order": 2,}),
 #     dbc.Col(recovered, width={"size": 1.5, "order": 3,}),
 #     dbc.Col(death, width={"size": 1.5, "order": 4})
 # ], justify="center", no_gutters=False)
