@@ -6,14 +6,14 @@ state_dcc = dcc.Dropdown(
         id="state-selected-dcc",
         value='Delhi',
         clearable=False,
-        style=dict(width = '250px', color="black"),
+        style=dict(width = '250px', color="black", verticalAlign="right"),
         options=[{'label':state_name, 'value':state_name} for state_name in get_state_list()]
     )
 
 district_dcc = dcc.Dropdown(
         id="district-selected-dcc",
         clearable=False,
-        style=dict(width = '250px', color="black", marginLeft="25px"),
+        style=dict(width = '250px', color="black", marginLeft="25px", verticalAlign="middle"),
         # options=[{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)]
     )
 
