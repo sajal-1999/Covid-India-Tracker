@@ -49,7 +49,7 @@ cards = dbc.Col([
     dbc.Row([active], justify="center", no_gutters=False), html.Br(), 
     dbc.Row([recovered], justify="center", no_gutters=False), html.Br(), 
     dbc.Row([death], justify="center", no_gutters=False)
-    ], width={"size": 1.5}, align="center")
+    ], width={"size": 1.25}, align="center")
 
 # carddeck = dbc.CardDeck([confirmed, active, recovered, death], style={"width": "50rem"})
 

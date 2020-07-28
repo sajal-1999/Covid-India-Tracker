@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 
 from get_data import *
 from totalgraph import india_graph
-from navbar import *
+from navbar import new_navbar
 from total_stats import cards
 from select_graph_att import state_dcc, district_dcc
 from lower_graph import detailed_graph, make_graph
@@ -18,7 +18,6 @@ app.title = "Covid India Tracker"
 
 top_row = dbc.Container([
     dbc.Row([cards, india_graph]),
-    # dbc.Row([state graph])
 ])
 
 second_row = dbc.Container([
@@ -32,6 +31,8 @@ app.layout = html.Div(#style={'backgroundColor': 'black'},
         html.Br(),
         # cards,
         top_row,
+        html.Br(),
+        dbc.Row(html.H3(children = "State & District Status"), justify = "center"),
         html.Br(),
         second_row,
     ])
