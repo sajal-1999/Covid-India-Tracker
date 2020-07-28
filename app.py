@@ -8,9 +8,9 @@ import plotly.graph_objects as go
 
 from get_data import *
 from totalgraph import india_graph
-from navbar import *
+from navbar import new_navbar
 from total_stats import cards
-from select_graph_att import *
+from select_graph_att import state_dcc, district_dcc
 from lower_graph import detailed_graph, make_graph
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
@@ -18,7 +18,6 @@ app.title = "Covid India Tracker"
 
 top_row = dbc.Container([
     dbc.Row([cards, india_graph]),
-    # dbc.Row([state graph])
 ])
 
 second_row = dbc.Container([
@@ -32,6 +31,8 @@ app.layout = html.Div(#style={'backgroundColor': 'black'},
         html.Br(),
         # cards,
         top_row,
+        html.Br(),
+        dbc.Row(html.H3(children = "State & District Status"), justify = "center"),
         html.Br(),
         second_row,
     ])
@@ -70,19 +71,20 @@ def update_district_nav(state_name_nav):
 )
 def update_graph2(*args):
     triggered_name = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
-    print(triggered_name)
+    # print(triggered_name)
     triggered_value = dash.callback_context.triggered[0]['value']
-    print(triggered_value)
+    # print(triggered_value)
     if not dash.callback_context.triggered:
         df = state_data_daily("Delhi")
         return make_graph(df, "Delhi")
     if triggered_name == 'state-selected-dcc':
-        print("here\n")
+        # print("here\n")
         df = state_data_daily(triggered_value)
         return make_graph(df, triggered_value)
     else:
         df = district_data_daily(triggered_value)
-        print("donee")
+        # print("donee")
+        # print(len(df))
         return make_graph(df, triggered_value)
 
 
