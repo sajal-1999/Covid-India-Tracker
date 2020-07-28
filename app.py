@@ -70,16 +70,20 @@ def update_district_nav(state_name_nav):
 )
 def update_graph2(*args):
     triggered_name = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
-    # print(triggered_name)
+    print(triggered_name)
     triggered_value = dash.callback_context.triggered[0]['value']
-    # print(triggered_value)
+    print(triggered_value)
+    if not dash.callback_context.triggered:
+        df = state_data_daily("Delhi")
+        return make_graph(df, "Delhi")
     if triggered_name == 'state-selected-dcc':
-        # print("here")
+        print("here\n")
         df = state_data_daily(triggered_value)
         return make_graph(df, triggered_value)
     else:
-            df = district_data_daily(triggered_value)
-            return make_graph(df, triggered_value)
+        df = district_data_daily(triggered_value)
+        print("donee")
+        return make_graph(df, triggered_value)
 
 
 
