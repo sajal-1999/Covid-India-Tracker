@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 from get_data import *
 # from totalgraph import india_graph
 from navbar import new_navbar
-from total_stats import cards
+from total_stats import cards, cards_lower
 from make_graph import make_graph
 from select_graph_att import state_dcc, district_dcc
 from lower_graph import lower_graph, total_graph
@@ -25,7 +25,7 @@ second_row = dbc.Container([
     dbc.Row(html.H3(children = "State & District Status"), justify = "center"),
     dbc.Row(html.Br()),
     dbc.Row([state_dcc, district_dcc], justify='center'),
-    dbc.Row([cards, lower_graph])
+    dbc.Row([cards_lower, lower_graph])
 ])
 
 app.layout = html.Div(
