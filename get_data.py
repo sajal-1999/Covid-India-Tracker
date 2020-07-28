@@ -23,11 +23,17 @@ def get_state_list():
     return district_wise['State'].unique()
 
 def get_state_to_district_mapping(state_name):
+    union_territories = ['Delhi', 'Andaman and Nicobar Islands', 'Chandigarh']
+    if state_name in union_territories:
+        return []
     district_mapping = pd.read_csv('https://api.covid19india.org/csv/latest/district_wise.csv')
     district_mapping = district_mapping[['State','District']]
     district_mapping.drop_duplicates(keep='first',inplace=True)
     district_mapping = district_mapping[district_mapping['State']==state_name]
     district_mapping = district_mapping[district_mapping['District']!='Other State']
+    district_mapping = district_mapping[district_mapping['District']!='Foreign Evacuees']
+    district_mapping = district_mapping[district_mapping['District']!='Unknown']
+    district_mapping = district_mapping[district_mapping['District']!='Airport Quarantine']
     return list(district_mapping['District'])
 
 def district_data_daily(district_name):
