@@ -27,7 +27,7 @@ second_row = dbc.Container([
     dbc.Row(html.H3(children = "State & District Status"), justify = "center"),
     dbc.Row(html.Br()),
     dbc.Row([state, district], justify='center'),
-    dbc.Row([cards_lower, lower_graph])
+    dbc.Row([cards_lower, dbc.Col(html.Div(), width=1), lower_graph])
 ])
 
 app.layout = html.Div(
@@ -66,18 +66,18 @@ def update_district(state_name):
     df_1 = state_data_daily(state_name)[-1:]
     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)],[dbc.Row([
     dbc.Col([
-        dbc.Row([make_card(df_1, "Confirmed", "info")], 
-            justify="center", 
-            no_gutters=False), html.Br(), 
-        dbc.Row([make_card(df_1, "Active", "danger")], 
-            justify="center", 
+        dbc.Row([make_card(df_1, "Confirmed", "info")],
+            justify="center",
+            no_gutters=False), html.Br(),
+        dbc.Row([make_card(df_1, "Active", "danger")],
+            justify="center",
             no_gutters=False)]),
     dbc.Col([
-        dbc.Row([make_card(df_1, "Recovered", "success")], 
-            justify="center", 
-            no_gutters=False), html.Br(), 
-        dbc.Row([make_card(df_1, "Deceased", "light")], 
-            justify="center", 
+        dbc.Row([make_card(df_1, "Recovered", "success")],
+            justify="center",
+            no_gutters=False), html.Br(),
+        dbc.Row([make_card(df_1, "Deceased", "light")],
+            justify="center",
             no_gutters=False)])
     ])]
 
