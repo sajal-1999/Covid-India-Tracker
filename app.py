@@ -39,11 +39,11 @@ app.layout = html.Div(
         second_row,
         html.Br(),
         dbc.Row([dbc.Button(
-                html.Span(["", html.I(className="fa fa-github")])),
+                html.Span(["", html.I(className="fa fa-github")]), style=dict(marginLeft="5px")),
             dbc.Button(
-                html.Span(["", html.I(className="fa fa-envelope")])),
+                html.Span(["", html.I(className="fa fa-envelope")]), style=dict(marginLeft="5px")),
             dbc.Button(
-                html.Span(["", html.I(className="fa fa-database")]))
+                html.Span(["", html.I(className="fa fa-database")]), style=dict(marginLeft="5px"))
         ], justify="center")
     ])
 
@@ -64,22 +64,22 @@ app.layout = html.Div(
 )
 def update_district(state_name):
     df_1 = state_data_daily(state_name)[-1:]
-    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)],[dbc.Row([
-    dbc.Col([
-        dbc.Row([make_card(df_1, "Confirmed", "info")],
-            justify="center",
-            no_gutters=False), html.Br(),
-        dbc.Row([make_card(df_1, "Active", "danger")],
-            justify="center",
-            no_gutters=False)]),
-    dbc.Col([
-        dbc.Row([make_card(df_1, "Recovered", "success")],
-            justify="center",
-            no_gutters=False), html.Br(),
-        dbc.Row([make_card(df_1, "Deceased", "light")],
-            justify="center",
-            no_gutters=False)])
-    ])]
+    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)],[
+        dbc.Row([
+            dbc.Col([
+                dbc.Row([make_card(df_1, "Confirmed", "info")], 
+                    justify="center", 
+                    no_gutters=False), html.Br(), 
+                dbc.Row([make_card(df_1, "Active", "danger")], 
+                    justify="center", 
+                    no_gutters=False)]),
+            dbc.Col([
+                dbc.Row([make_card(df_1, "Recovered", "success")], 
+                    justify="center", 
+                    no_gutters=False), html.Br(), 
+                dbc.Row([make_card(df_1, "Deceased", "light")], 
+                    justify="center", 
+                    no_gutters=False)])], style=dict(marginLeft="10px"))]
 
 @app.callback(
     Output("district-selected-nav", "options"),
