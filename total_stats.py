@@ -32,17 +32,17 @@ cards = dbc.Col([
 
 df_1 = state_data_daily("Delhi")[-1:]
 cards_lower = dbc.Col([
-    dbc.Col([dbc.Row([make_card(df_1, "Confirmed", "info")], 
-        justify="center", 
-        no_gutters=False), html.Br(), 
-    dbc.Row([make_card(df_1, "Active", "danger")], 
-        justify="center", 
+    dbc.Col([dbc.Row([make_card(df_1, "Confirmed", "info")],
+        justify="center",
+        no_gutters=False), html.Br(),
+    dbc.Row([make_card(df_1, "Active", "danger")],
+        justify="center",
         no_gutters=False)]),
-    dbc.Col([dbc.Row([make_card(df_1, "Recovered", "success")], 
-        justify="center", 
-        no_gutters=False), html.Br(), 
-    dbc.Row([make_card(df_1, "Deceased", "light")], 
-        justify="center", 
+    dbc.Col([dbc.Row([make_card(df_1, "Recovered", "success")],
+        justify="center",
+        no_gutters=False), html.Br(),
+    dbc.Row([make_card(df_1, "Deceased", "light")],
+        justify="center",
         no_gutters=False)])
     ], width={"size": 1.25}, align="center", id="lower_card")
 
