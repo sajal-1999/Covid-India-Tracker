@@ -38,6 +38,8 @@ app.layout = html.Div(
         html.Br(),
         second_row,
         html.Br(),
+        html.Br(),
+        html.Br(),
         dbc.Row([dbc.Button(
                 html.Span(["", html.I(className="fa fa-github")]), style=dict(marginLeft="5px")),
             dbc.Button(
@@ -67,18 +69,18 @@ def update_district(state_name):
     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)],[
         dbc.Row([
             dbc.Col([
-                dbc.Row([make_card(df_1, "Confirmed", "info")], 
-                    justify="center", 
-                    no_gutters=False), html.Br(), 
-                dbc.Row([make_card(df_1, "Active", "danger")], 
-                    justify="center", 
+                dbc.Row([make_card(df_1, "Confirmed", "info")],
+                    justify="center",
+                    no_gutters=False), html.Br(),
+                dbc.Row([make_card(df_1, "Active", "danger")],
+                    justify="center",
                     no_gutters=False)]),
             dbc.Col([
-                dbc.Row([make_card(df_1, "Recovered", "success")], 
-                    justify="center", 
-                    no_gutters=False), html.Br(), 
-                dbc.Row([make_card(df_1, "Deceased", "light")], 
-                    justify="center", 
+                dbc.Row([make_card(df_1, "Recovered", "success")],
+                    justify="center",
+                    no_gutters=False), html.Br(),
+                dbc.Row([make_card(df_1, "Deceased", "light")],
+                    justify="center",
                     no_gutters=False)])], style=dict(marginLeft="10px"))]
 
 @app.callback(
