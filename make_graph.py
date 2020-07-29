@@ -36,6 +36,8 @@ def make_graph(df, region):
             plot_bgcolor='rgba(0,0,0,0)',
             dragmode=False,
             hovermode="x",
+            height = 500,
+            width = 700,
             # hoverlabel=dict(bgcolor="#4d4e50"),
             titlefont=dict(color='#FFFFFF')
         )

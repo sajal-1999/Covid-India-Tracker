@@ -20,7 +20,8 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, {
 app.title = "Covid India Tracker"
 
 top_row = dbc.Container([
-    dbc.Row([cards, total_graph]),
+    dbc.Row([cards, dbc.Col(html.Div(), width=1), total_graph]),
+    # dbc.Row([html.Div()], style=dict(height=10))
 ])
 
 second_row = dbc.Container([
@@ -73,6 +74,7 @@ def update_district(state_name):
                 dbc.Row([make_card(df_1, "Active", "danger")], 
                     justify="center", 
                     no_gutters=False)]),
+                    
             dbc.Col([
                 dbc.Row([make_card(df_1, "Recovered", "success")], 
                     justify="center", 
