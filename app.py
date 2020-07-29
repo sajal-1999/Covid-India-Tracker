@@ -27,7 +27,7 @@ second_row = dbc.Container([
     dbc.Row(html.H3(children = "State & District Status"), justify = "center"),
     dbc.Row(html.Br()),
     dbc.Row([state, district], justify='center'),
-    dbc.Row([cards_lower, lower_graph])
+    dbc.Row([cards_lower, dbc.Col(html.Div(), width=1), lower_graph])
 ])
 
 app.layout = html.Div(
