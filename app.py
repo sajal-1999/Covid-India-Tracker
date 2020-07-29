@@ -11,7 +11,12 @@ from total_stats import cards, cards_lower, make_card
 from make_graph import make_graph, lower_graph, total_graph
 from select_graph_att import state, district
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY])
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, {
+    'href': 'https://use.fontawesome.com/releases/v5.8.1/css/all.css',
+    'rel': 'stylesheet',
+    'integrity': 'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf',
+    'crossorigin': 'anonymous'
+}])
 app.title = "Covid India Tracker"
 
 top_row = dbc.Container([
@@ -32,7 +37,14 @@ app.layout = html.Div(
         top_row,
         html.Br(),
         second_row,
-        html.Br()
+        html.Br(),
+        dbc.Row([dbc.Button(
+                html.Span(["", html.I(className="fa fa-github")])),
+            dbc.Button(
+                html.Span(["", html.I(className="fa fa-envelope")])),
+            dbc.Button(
+                html.Span(["", html.I(className="fa fa-database")]))
+        ], justify="center")
     ])
 
 # @app.callback(
