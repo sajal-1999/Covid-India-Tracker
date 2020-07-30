@@ -71,7 +71,6 @@ app.layout = html.Div(
 def update_district(*args):
     triggered_name = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
     triggered_value = dash.callback_context.triggered[0]['value']
-    print(dash.callback_context.triggered)
     if not dash.callback_context.triggered:
         df_1 = state_data_daily('Delhi')[-1:]
         return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping('Delhi')],[
