@@ -17,6 +17,8 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, {
     'integrity': 'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf',
     'crossorigin': 'anonymous'
 }])
+server = app.server
+
 app.title = "Covid India Tracker"
 
 top_row = dbc.Container([
