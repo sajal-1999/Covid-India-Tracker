@@ -19,7 +19,7 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, {
 }])
 server = app.server
 
-app.title = "Covid India Tracker"
+app.title = "COVID-19 India Stats Tracker"
 
 top_row = dbc.Container([
     dbc.Row([cards, dbc.Col(html.Div(), width=1), total_graph]),
