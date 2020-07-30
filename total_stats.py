@@ -15,22 +15,24 @@ def make_card(df, card_name, color):
         style = {"height": "6rem", "width": "140px"}
     )
 
-cards = dbc.Row([
-    dbc.Col([
-        dbc.Row([make_card(df, "Confirmed", "info")],
-            justify="center",
-            no_gutters=False), html.Br(),
-        dbc.Row([make_card(df, "Recovered", "success")],
-            justify="center",
-            no_gutters=False), html.Br()], style={"width": "150px"}),
-    dbc.Col([
-        dbc.Row([make_card(df, "Active", "danger")],
-            justify="center",
-            no_gutters=False), html.Br(),
-        dbc.Row([make_card(df, "Deceased", "light")],
-            justify="center",
-            no_gutters=False)
-        ], style={"width": "150px"})], align="center")
+cards = dbc.Col([
+    dbc.Row([make_card(df, "Confirmed", "info"), dbc.Col([make_card(df, "Active", "danger")], style=dict(marginLeft="10px"))],
+        justify="center",
+        no_gutters=False), 
+    html.Br(),
+    dbc.Row([make_card(df, "Recovered", "success"), dbc.Col([make_card(df, "Deceased", "light")], style=dict(marginLeft="10px"))],
+        justify="center",
+        no_gutters=False),
+    html.Br()
+    ],  align="center")
+    # dbc.Col([
+    #     dbc.Row([],
+    #         justify="center",
+    #         no_gutters=False), html.Br(),
+    #     dbc.Row([],
+    #         justify="center",
+    #         no_gutters=False)])
+    #     ], style=dict(marginLeft="10px"))
 
 df_1 = state_data_daily("Delhi")[-1:]
 cards_lower = dbc.Col([
