@@ -42,11 +42,11 @@ app.layout = html.Div(
         html.Br(),
         html.Br(),
         dbc.Row([dbc.Button(
-                html.Span(["", html.I(className="fa fa-github")]), style=dict(marginLeft="5px")),
+                html.Span(["", html.I(className="fa fa-github")]), style=dict(marginLeft="5px"), href="https://github.com/arunimaagl/Covid-India-Tracker"),
             dbc.Button(
-                html.Span(["", html.I(className="fa fa-envelope")]), style=dict(marginLeft="5px")),
+                html.Span(["", html.I(className="fa fa-envelope")]), style=dict(marginLeft="8px"), href="mailto:covid19indiastats@gmail.com"),
             dbc.Button(
-                html.Span(["", html.I(className="fa fa-database")]), style=dict(marginLeft="5px"))
+                html.Span(["", html.I(className="fa fa-database")]), style=dict(marginLeft="8px"), href="https://api.covid19india.org/")
         ], justify="center")
     ])
 
