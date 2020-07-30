@@ -2,6 +2,7 @@
 
 ## A detailed graphical depiction of India's current Covid-19 stats.
 ---
+https://covid-india-stats-tracker.herokuapp.com/
 ### to-do list
 - [ ] fix card layout
 - [ ] fix graph width
