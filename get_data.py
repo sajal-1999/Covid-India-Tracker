@@ -55,3 +55,21 @@ def state_data_daily(state_name):
     state_data.drop_duplicates(keep='first',inplace=True)
     state_data = state_data[state_data['State']==state_name]
     return state_data
+
+def get_state_percent_contribution(state_name):
+    india_stats = pd.read_csv("https://api.covid19india.org/csv/latest/case_time_series.csv")
+    india_stats = india_stats[-1:]
+    india_stats['Active'] = india_stats['Total Confirmed'] - india_stats['Total Recovered'] - india_stats['Total Deceased']
+
+    state_stats = pd.read_csv('https://api.covid19india.org/csv/latest/states.csv')
+    state_stats = state_stats[state_stats['State']==state_name]
+    state_stats = state_stats[-1:]
+    state_stats['Active'] = state_stats['Confirmed'] - state_stats['Recovered'] - state_stats['Deceased'] - state_stats['Other']
+
+    percent_df = pd.DataFrame()
+    percent_df['Active'] = 100* list(state_stats['Active'])/india_stats['Active']
+    percent_df['Confirmed'] = 100* list(state_stats['Confirmed'])/india_stats['Total Confirmed']
+    percent_df['Recovered'] = 100* list(state_stats['Recovered'])/india_stats['Total Recovered']
+    percent_df['Deceased'] = 100* list(state_stats['Deceased'])/india_stats['Total deceased']
+
+    return percent_df

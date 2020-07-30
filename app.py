@@ -42,11 +42,11 @@ app.layout = html.Div(
         html.Br(),
         html.Br(),
         dbc.Row([dbc.Button(
-                html.Span(["", html.I(className="fa fa-github")]), style=dict(marginLeft="5px"), href="https://github.com/arunimaagl/Covid-India-Tracker"),
+                html.Span(["", html.I(className="fa fa-github")]), style=dict(marginLeft="5px"), href="https://github.com/sajal-1999/Covid-India-Tracker", target="_blank"),
             dbc.Button(
-                html.Span(["", html.I(className="fa fa-envelope")]), style=dict(marginLeft="8px"), href="mailto:covid19indiastats@gmail.com"),
+                html.Span(["", html.I(className="fa fa-envelope")]), style=dict(marginLeft="8px"), href="mailto:covid19indiastats@gmail.com", target="_blank"),
             dbc.Button(
-                html.Span(["", html.I(className="fa fa-database")]), style=dict(marginLeft="8px"), href="https://api.covid19india.org/")
+                html.Span(["", html.I(className="fa fa-database")]), style=dict(marginLeft="8px"), href="https://api.covid19india.org/", target="_blank")
         ], justify="center")
     ])
 
@@ -76,7 +76,7 @@ def update_district(state_name):
                 dbc.Row([make_card(df_1, "Active", "danger")],
                     justify="center",
                     no_gutters=False)]),
-                    
+
             dbc.Col([
                 dbc.Row([make_card(df_1, "Recovered", "success")],
                     justify="center",
