@@ -25,14 +25,6 @@ cards = dbc.Col([
         no_gutters=False),
     html.Br()
     ],  align="center")
-    # dbc.Col([
-    #     dbc.Row([],
-    #         justify="center",
-    #         no_gutters=False), html.Br(),
-    #     dbc.Row([],
-    #         justify="center",
-    #         no_gutters=False)])
-    #     ], style=dict(marginLeft="10px"))
 
 df_1 = state_data_daily("Delhi")[-1:]
 cards_lower = dbc.Col([
@@ -40,16 +32,9 @@ cards_lower = dbc.Col([
         justify="center",
         no_gutters=False), 
     html.Br(),
-        # dbc.Row([],
-        #     justify="center",
-        #     no_gutters=False)], style={"width": "150px"}),
     dbc.Row([make_card(df_1, "Recovered", "success"), dbc.Col([make_card(df_1, "Deceased", "light")], style=dict(marginLeft="10px"))],
             justify="center",
-            no_gutters=False), 
-        #     html.Br(),
-        # dbc.Row([],
-        #     justify="center",
-        #     no_gutters=False)], style={"width": "150px"})
+            no_gutters=False),
     ], align="center", id="lower_card")
 
 # carddeck = dbc.CardDeck([confirmed, active, recovered, death], style={"width": "50rem"})

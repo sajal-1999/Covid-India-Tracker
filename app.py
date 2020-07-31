@@ -5,7 +5,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 # import plotly.graph_objects as go
 
-from get_data import *
+from get_data import get_state_to_district_mapping, state_data_daily, district_data_daily
 from navbar import new_navbar
 from total_stats import cards, cards_lower, make_card
 from make_graph import make_graph, lower_graph, total_graph
@@ -63,29 +63,12 @@ app.layout = html.Div(
 
 
 @app.callback(
-    [Output("district-selected", "options"),
-    Output("lower_card", "children")],
+    Output("district-selected", "options"),
     [Input("state-selected", "value")]
 )
 def update_district(state_name):
     df_1 = state_data_daily(state_name)[-1:]
-    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)],[
-        dbc.Row([
-            dbc.Col([
-                dbc.Row([make_card(df_1, "Confirmed", "info")],
-                    justify="center",
-                    no_gutters=False), html.Br(),
-                dbc.Row([make_card(df_1, "Active", "danger")],
-                    justify="center",
-                    no_gutters=False)]),
-
-            dbc.Col([
-                dbc.Row([make_card(df_1, "Recovered", "success")],
-                    justify="center",
-                    no_gutters=False), html.Br(),
-                dbc.Row([make_card(df_1, "Deceased", "light")],
-                    justify="center",
-                    no_gutters=False)])], style=dict(marginLeft="10px"))]
+    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)]
 
 # @app.callback(
 #     Output("district-selected-nav", "options"),
@@ -95,7 +78,8 @@ def update_district(state_name):
 #     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
 
 @app.callback(
-    Output("lower_graph", "figure"),
+    [Output("lower_graph", "figure"),
+    Output("lower_card", "children")],
     [Input("state-selected", "value"),
     Input("district-selected", "value")]
 )
@@ -103,14 +87,31 @@ def update_graph(*args):
     triggered_name = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
     triggered_value = dash.callback_context.triggered[0]['value']
     if not dash.callback_context.triggered:
-        df = state_data_daily("Delhi")
-        return make_graph(df, "Delhi")
+        triggered_name = 'state-selected'
+        triggered_value = "Delhi"
+
     if triggered_name == 'state-selected':
         df = state_data_daily(triggered_value)
-        return make_graph(df, triggered_value)
+        df_1 = df[-1:]
+        return make_graph(df, triggered_value),[
+        dbc.Row([make_card(df_1, "Confirmed", "info"), dbc.Col([make_card(df_1, "Active", "danger")],  style=dict(marginLeft="10px"))],
+            justify="center",
+            no_gutters=False), 
+        html.Br(),
+        dbc.Row([make_card(df_1, "Recovered", "success"), dbc.Col([make_card(df_1, "Deceased", "light")], style=dict(marginLeft="10px"))],
+                justify="center",
+                no_gutters=False)]
     else:
         df = district_data_daily(triggered_value)
-        return make_graph(df, triggered_value)
+        df_1 = df[-1:]
+        return make_graph(df, triggered_value),[
+        dbc.Row([make_card(df_1, "Confirmed", "info"), dbc.Col([make_card(df_1, "Active", "danger")],  style=dict(marginLeft="10px"))],
+            justify="center",
+            no_gutters=False), 
+        html.Br(),
+        dbc.Row([make_card(df_1, "Recovered", "success"), dbc.Col([make_card(df_1, "Deceased", "light")], style=dict(marginLeft="10px"))],
+                justify="center",
+                no_gutters=False)]
 
 
 
