@@ -1,9 +1,10 @@
 import dash
+import flask
 import dash_bootstrap_components as dbc
 # import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-# import plotly.graph_objects as go
+import os
 
 from get_data import *
 from navbar import new_navbar
@@ -11,7 +12,7 @@ from total_stats import cards, cards_lower, make_card
 from make_graph import make_graph, lower_graph, total_graph
 from select_graph_att import state, district
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, {
+app = dash.Dash(__name__, assets_folder=os.path.dirname(os.path.dirname(__file__)) + "/"+"/assets", external_stylesheets=[dbc.themes.DARKLY, {
     'href': 'https://use.fontawesome.com/releases/v5.8.1/css/all.css',
     'rel': 'stylesheet',
     'integrity': 'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf',
@@ -20,6 +21,14 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, {
 server = app.server
 
 app.title = "COVID-19 India Stats Tracker"
+
+# app.head = [
+#     html.Link(
+#         href="/assets/favicon.ico",
+#         rel='icon'
+#     ),
+# ]
+
 
 top_row = dbc.Container([
     dbc.Row([cards, dbc.Col(html.Div(), width=1), total_graph]),
@@ -35,7 +44,27 @@ second_row = dbc.Container([
 
 app.layout = html.Div(
     children=[
-        new_navbar,
+        dbc.Navbar(
+    [
+        html.A(
+            # Use row and col to control vertical alignment of logo / brand
+            dbc.Row(
+                [
+                    dbc.Col(html.Img(src=app.get_asset_url("logo.png"), height="30px")),
+                    # dbc.Col(dbc.NavbarBrand("Navbar", className="ml-2")),
+                ],
+                align="center",
+                no_gutters=True,
+            ),
+            # href="https://plot.ly",
+        ),
+
+        dbc.NavbarBrand("Covid India Tracker", className="ml-2"),
+        # dbc.Collapse(email_bar, id="navbar-collapse", navbar=True)
+    ],
+    color="dark",
+    dark=True,
+),
         html.Br(),
         top_row,
         html.Br(),
@@ -61,101 +90,91 @@ app.layout = html.Div(
 #         return True
 #     return False
 
+# @server.route('/favicon.ico')
+# def favicon():
+#     return flask.send_from_directory(os.path.join(server.root_path, 'assets'),
+#                                'favicon.ico')
+
+
 
 @app.callback(
-    [Output("district-selected", "options"),
-    Output("lower_card", "children")],
-    [Input("state-selected", "value"),
-    Input("district-selected", "value")]
+    [Output("district-selected", "options")],
+    [Input("state-selected", "value")]
 )
-def update_district(*args):
-    triggered_name = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
-    triggered_value = dash.callback_context.triggered[0]['value']
+def update_district(state_name):
     if not dash.callback_context.triggered:
-        df_1 = state_data_daily('Delhi')[-1:]
-        return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping('Delhi')],[
-            dbc.Row([
-                dbc.Col([
-                    dbc.Row([make_card(df_1, "Confirmed", "info")],
-                        justify="center",
-                        no_gutters=False), html.Br(),
-                    dbc.Row([make_card(df_1, "Active", "danger")],
-                        justify="center",
-                        no_gutters=False)]),
+        state_name = "Delhi"
+    distt_list = get_state_to_district_mapping(state_name)
+    print(len(distt_list))
+    # print(distt_list)
+    print(list({'label':district_name, 'value':district_name} for district_name in distt_list))
+    return list({'label':district_name, 'value':district_name} for district_name in distt_list)
 
-                dbc.Col([
-                    dbc.Row([make_card(df_1, "Recovered", "success")],
-                        justify="center",
-                        no_gutters=False), html.Br(),
-                    dbc.Row([make_card(df_1, "Deceased", "light")],
-                        justify="center",
-                        no_gutters=False)])], style=dict(marginLeft="10px"))]
-    if triggered_name == 'state-selected':
-        df_1 = state_data_daily(triggered_value)[-1:]
-        prev_state = triggered_value
-        return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(triggered_value)],[
-            dbc.Row([
-                dbc.Col([
-                    dbc.Row([make_card(df_1, "Confirmed", "info")],
-                        justify="center",
-                        no_gutters=False), html.Br(),
-                    dbc.Row([make_card(df_1, "Active", "danger")],
-                        justify="center",
-                        no_gutters=False)]),
-
-                dbc.Col([
-                    dbc.Row([make_card(df_1, "Recovered", "success")],
-                        justify="center",
-                        no_gutters=False), html.Br(),
-                    dbc.Row([make_card(df_1, "Deceased", "light")],
-                        justify="center",
-                        no_gutters=False)])], style=dict(marginLeft="10px"))]
-    else:
-        df_1 = district_data_daily(triggered_value)[-1:]
-        return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping('Delhi')],[
-            dbc.Row([
-                dbc.Col([
-                    dbc.Row([make_card(df_1, "Confirmed", "info")],
-                        justify="center",
-                        no_gutters=False), html.Br(),
-                    dbc.Row([make_card(df_1, "Active", "danger")],
-                        justify="center",
-                        no_gutters=False)]),
-
-                dbc.Col([
-                    dbc.Row([make_card(df_1, "Recovered", "success")],
-                        justify="center",
-                        no_gutters=False), html.Br(),
-                    dbc.Row([make_card(df_1, "Deceased", "light")],
-                        justify="center",
-                        no_gutters=False)])], style=dict(marginLeft="10px"))]
-
+# @app.callback(
+#     Output("district-selected-nav", "options"),
+#     [Input("state-selected-nav", "value")]
+# )
+# def update_district_nav(state_name_nav):
+#     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
 
 @app.callback(
-    Output("district-selected-nav", "options"),
-    [Input("state-selected-nav", "value")]
-)
-def update_district_nav(state_name_nav):
-    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
-
-@app.callback(
-    Output("lower_graph", "figure"),
+    [Output("lower_graph", "figure"),
+    Output("lower_card", "children")],
     [Input("state-selected", "value"),
     Input("district-selected", "value")]
 )
 def update_graph(*args):
     triggered_name = dash.callback_context.triggered[0]['prop_id'].split('.')[0]
     triggered_value = dash.callback_context.triggered[0]['value']
-    if not dash.callback_context.triggered:
-        df = state_data_daily("Delhi")
-        return make_graph(df, "Delhi")
-    if triggered_name == 'state-selected':
+    # if not dash.callback_context.triggered:
+
+    if (triggered_name == 'state-selected') or (triggered_value == None):
+        if triggered_value == None:
+            triggered_value = "Delhi"
         df = state_data_daily(triggered_value)
-        return make_graph(df, triggered_value)
+        return make_graph(df, triggered_value), [
+        dbc.Row([
+            dbc.Col([
+                dbc.Row([make_card(df[-1:], "Confirmed", "info")],
+                    justify="center",
+                    no_gutters=False), html.Br(),
+                dbc.Row([make_card(df[-1:], "Active", "danger")],
+                    justify="center",
+                    no_gutters=False)]),
+
+            dbc.Col([
+                dbc.Row([make_card(df[-1:], "Recovered", "success")],
+                    justify="center",
+                    no_gutters=False), html.Br(),
+                dbc.Row([make_card(df[-1:], "Deceased", "light")],
+                    justify="center",
+                    no_gutters=False)])], style=dict(marginLeft="10px"))]
+# =======
+#     if not dash.callback_context.triggered:
+#         df = state_data_daily("Delhi")
+#         return make_graph(df, "Delhi")
+#     if triggered_name == 'state-selected':
+#         df = state_data_daily(triggered_value)
+#         return make_graph(df, triggered_value)
     else:
         df = district_data_daily(triggered_value)
-        return make_graph(df, triggered_value)
+        return make_graph(df, triggered_value), [
+        dbc.Row([
+            dbc.Col([
+                dbc.Row([make_card(df[-1:], "Confirmed", "info")],
+                    justify="center",
+                    no_gutters=False), html.Br(),
+                dbc.Row([make_card(df, "Active", "danger")],
+                    justify="center",
+                    no_gutters=False)]),
 
+            dbc.Col([
+                dbc.Row([make_card(df[-1:], "Recovered", "success")],
+                    justify="center",
+                    no_gutters=False), html.Br(),
+                dbc.Row([make_card(df, "Deceased", "light")],
+                    justify="center",
+                    no_gutters=False)])], style=dict(marginLeft="10px"))]
 
 
 if __name__ == '__main__':
