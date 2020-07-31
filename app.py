@@ -20,7 +20,7 @@ app = dash.Dash(__name__, assets_folder=os.path.dirname(os.path.dirname(__file__
 }])
 server = app.server
 
-app.title = "Covid India Tracker"
+app.title = "COVID-19 India Stats Tracker"
 
 # app.head = [
 #     html.Link(
@@ -149,6 +149,13 @@ def update_graph(*args):
                 dbc.Row([make_card(df[-1:], "Deceased", "light")],
                     justify="center",
                     no_gutters=False)])], style=dict(marginLeft="10px"))]
+# =======
+#     if not dash.callback_context.triggered:
+#         df = state_data_daily("Delhi")
+#         return make_graph(df, "Delhi")
+#     if triggered_name == 'state-selected':
+#         df = state_data_daily(triggered_value)
+#         return make_graph(df, triggered_value)
     else:
         df = district_data_daily(triggered_value)
         return make_graph(df, triggered_value), [
