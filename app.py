@@ -1,9 +1,10 @@
 import dash
+import flask
 import dash_bootstrap_components as dbc
 # import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-# import plotly.graph_objects as go
+import os
 
 from get_data import *
 from navbar import new_navbar
@@ -11,7 +12,7 @@ from total_stats import cards, cards_lower, make_card
 from make_graph import make_graph, lower_graph, total_graph
 from select_graph_att import state, district
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, {
+app = dash.Dash(__name__, assets_folder=os.path.dirname(os.path.dirname(__file__)) + "/"+"/assets", external_stylesheets=[dbc.themes.DARKLY, {
     'href': 'https://use.fontawesome.com/releases/v5.8.1/css/all.css',
     'rel': 'stylesheet',
     'integrity': 'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf',
@@ -20,6 +21,14 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, {
 server = app.server
 
 app.title = "Covid India Tracker"
+
+# app.head = [
+#     html.Link(
+#         href="/assets/favicon.ico",
+#         rel='icon'
+#     ),
+# ]
+
 
 top_row = dbc.Container([
     dbc.Row([cards, dbc.Col(html.Div(), width=1), total_graph]),
@@ -35,7 +44,27 @@ second_row = dbc.Container([
 
 app.layout = html.Div(
     children=[
-        new_navbar,
+        dbc.Navbar(
+    [
+        html.A(
+            # Use row and col to control vertical alignment of logo / brand
+            dbc.Row(
+                [
+                    dbc.Col(html.Img(src=app.get_asset_url("logo.png"), height="30px")),
+                    # dbc.Col(dbc.NavbarBrand("Navbar", className="ml-2")),
+                ],
+                align="center",
+                no_gutters=True,
+            ),
+            # href="https://plot.ly",
+        ),
+
+        dbc.NavbarBrand("Covid India Tracker", className="ml-2"),
+        # dbc.Collapse(email_bar, id="navbar-collapse", navbar=True)
+    ],
+    color="dark",
+    dark=True,
+),
         html.Br(),
         top_row,
         html.Br(),
@@ -61,6 +90,12 @@ app.layout = html.Div(
 #         return True
 #     return False
 
+# @server.route('/favicon.ico')
+# def favicon():
+#     return flask.send_from_directory(os.path.join(server.root_path, 'assets'),
+#                                'favicon.ico')
+
+
 
 @app.callback(
     [Output("district-selected", "options")],
@@ -71,15 +106,16 @@ def update_district(state_name):
         state_name = "Delhi"
     distt_list = get_state_to_district_mapping(state_name)
     print(len(distt_list))
-    print(distt_list)
+    # print(distt_list)
+    print(list({'label':district_name, 'value':district_name} for district_name in distt_list))
     return list({'label':district_name, 'value':district_name} for district_name in distt_list)
 
-@app.callback(
-    Output("district-selected-nav", "options"),
-    [Input("state-selected-nav", "value")]
-)
-def update_district_nav(state_name_nav):
-    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
+# @app.callback(
+#     Output("district-selected-nav", "options"),
+#     [Input("state-selected-nav", "value")]
+# )
+# def update_district_nav(state_name_nav):
+#     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
 
 @app.callback(
     [Output("lower_graph", "figure"),
