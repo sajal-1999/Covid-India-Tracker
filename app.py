@@ -44,7 +44,7 @@ app.layout = html.Div(
         html.Br(),
         html.Br(),
         dbc.Row([dbc.Button(
-                html.Span(["", html.I(className="fa fa-github")]), style=dict(marginLeft="5px"), href="https://github.com/sajal-1999/Covid-India-Tracker", target="_blank"),
+                html.Span(["", html.I(className="fab fa-github")]), style=dict(marginLeft="5px"), href="https://github.com/sajal-1999/Covid-India-Tracker", target="_blank"),
             dbc.Button(
                 html.Span(["", html.I(className="fa fa-envelope")]), style=dict(marginLeft="8px"), href="mailto:covid19indiastats@gmail.com", target="_blank"),
             dbc.Button(
@@ -87,12 +87,12 @@ def update_district(state_name):
                     justify="center",
                     no_gutters=False)])], style=dict(marginLeft="10px"))]
 
-@app.callback(
-    Output("district-selected-nav", "options"),
-    [Input("state-selected-nav", "value")]
-)
-def update_district_nav(state_name_nav):
-    return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
+# @app.callback(
+#     Output("district-selected-nav", "options"),
+#     [Input("state-selected-nav", "value")]
+# )
+# def update_district_nav(state_name_nav):
+#     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name_nav)]
 
 @app.callback(
     Output("lower_graph", "figure"),
