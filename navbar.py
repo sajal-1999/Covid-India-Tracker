@@ -1,5 +1,6 @@
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
+import dash_html_components as html
 from get_data import get_state_list,  get_state_to_district_mapping
 
 state_list_nav = []
@@ -86,9 +87,9 @@ new_navbar = dbc.Navbar(
         #     ),
         #     href="https://plot.ly",
         # ),
-
+        dbc.Col(html.Img(src="assets/favicon.png", height="30px")),
         dbc.NavbarBrand("Covid India Tracker", className="ml-2"),
-        dbc.Collapse(email_bar, id="navbar-collapse", navbar=True)
+        # dbc.Collapse(email_bar, id="navbar-collapse", navbar=True)
     ],
     color="dark",
     dark=True,

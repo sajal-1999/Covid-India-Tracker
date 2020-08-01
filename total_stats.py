@@ -2,8 +2,6 @@ import dash_bootstrap_components as dbc
 import dash_html_components as html
 from get_data import get_data, state_data_daily
 
-df = get_data()[-1:]
-
 def make_card(df, card_name, color):
     return dbc.Card(
         dbc.CardBody([
@@ -15,42 +13,21 @@ def make_card(df, card_name, color):
         style = {"height": "6rem", "width": "140px"}
     )
 
-cards = dbc.Col([
-    dbc.Row([make_card(df, "Confirmed", "info"), dbc.Col([make_card(df, "Active", "danger")], style=dict(marginLeft="10px"))],
-        justify="center",
-        no_gutters=False), 
-    html.Br(),
-    dbc.Row([make_card(df, "Recovered", "success"), dbc.Col([make_card(df, "Deceased", "light")], style=dict(marginLeft="10px"))],
-        justify="center",
-        no_gutters=False),
-    html.Br()
-    ],  align="center")
-    # dbc.Col([
-    #     dbc.Row([],
-    #         justify="center",
-    #         no_gutters=False), html.Br(),
-    #     dbc.Row([],
-    #         justify="center",
-    #         no_gutters=False)])
-    #     ], style=dict(marginLeft="10px"))
-
-df_1 = state_data_daily("Delhi")[-1:]
-cards_lower = dbc.Col([
-    dbc.Row([make_card(df_1, "Confirmed", "info"), dbc.Col([make_card(df_1, "Active", "danger")],  style=dict(marginLeft="10px"))],
-        justify="center",
-        no_gutters=False), 
-    html.Br(),
-        # dbc.Row([],
-        #     justify="center",
-        #     no_gutters=False)], style={"width": "150px"}),
-    dbc.Row([make_card(df_1, "Recovered", "success"), dbc.Col([make_card(df_1, "Deceased", "light")], style=dict(marginLeft="10px"))],
+def get_card_layout(df):
+    return [
+        dbc.Row([make_card(df, "Confirmed", "info"), dbc.Col([make_card(df, "Active", "danger")], style=dict(marginLeft="10px"))],
             justify="center",
             no_gutters=False), 
-        #     html.Br(),
-        # dbc.Row([],
-        #     justify="center",
-        #     no_gutters=False)], style={"width": "150px"})
-    ], align="center", id="lower_card")
+        html.Br(),
+        dbc.Row([make_card(df, "Recovered", "success"), dbc.Col([make_card(df, "Deceased", "light")], style=dict(marginLeft="10px"))],
+            justify="center",
+            no_gutters=False),
+        html.Br()
+    ]
+
+cards = dbc.Col(get_card_layout(get_data()[-1:]),  align="center")
+
+cards_lower = dbc.Col(get_card_layout(state_data_daily("Delhi")[-1:]), id = "lower_card",  align="center")
 
 # carddeck = dbc.CardDeck([confirmed, active, recovered, death], style={"width": "50rem"})
 
