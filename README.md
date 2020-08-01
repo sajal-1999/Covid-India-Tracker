@@ -1,11 +1,13 @@
-# Covid India Tracker
+# COVID India Tracker
 
 ## A detailed graphical depiction of India's current Covid-19 stats.
 ---
+[COVID-19 India Stats Tracker](https://covid-india-stats-tracker.herokuapp.com/)
+
 ### to-do list
-- [ ] fix card layout
-- [ ] fix graph width
-- [ ] add links to github/data source/gmail at the bottom  -- tiny cards with image as the icon
-- [ ] fix the navbar toast
+- [ ] navbar toast
 - [ ] fix navbar display
 - [ ] integrate mailing list
+
+#### Data Source
+[COVID19-India API](https://api.covid19india.org/)
