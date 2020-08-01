@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 
 from get_data import get_state_to_district_mapping, state_data_daily, district_data_daily
 from navbar import new_navbar
-from total_stats import cards, cards_lower, make_card
+from total_stats import cards, cards_lower, get_card_layout
 from make_graph import make_graph, lower_graph, total_graph
 from select_graph_att import state, district
 
@@ -22,7 +22,7 @@ server = app.server
 app.title = "COVID-19 India Stats Tracker"
 
 top_row = dbc.Container([
-    dbc.Row([cards, dbc.Col(html.Div(), width=1), total_graph]),
+    dbc.Row([cards, dbc.Col(html.Div(), width=0.5), total_graph]),
     # dbc.Row([html.Div()], style=dict(height=10))
 ])
 
@@ -30,7 +30,7 @@ second_row = dbc.Container([
     dbc.Row(html.H3(children = "State & District Status"), justify = "center"),
     dbc.Row(html.Br()),
     dbc.Row([state, district], justify='center'),
-    dbc.Row([cards_lower, dbc.Col(html.Div(), width=1), lower_graph])
+    dbc.Row([cards_lower, dbc.Col(html.Div(), width=0.5), lower_graph])
 ])
 
 app.layout = html.Div(
@@ -67,7 +67,6 @@ app.layout = html.Div(
     [Input("state-selected", "value")]
 )
 def update_district(state_name):
-    df_1 = state_data_daily(state_name)[-1:]
     return [{'label':district_name, 'value':district_name} for district_name in get_state_to_district_mapping(state_name)]
 
 # @app.callback(
@@ -92,28 +91,10 @@ def update_graph(*args):
 
     if triggered_name == 'state-selected':
         df = state_data_daily(triggered_value)
-        df_1 = df[-1:]
-        return make_graph(df, triggered_value),[
-        dbc.Row([make_card(df_1, "Confirmed", "info"), dbc.Col([make_card(df_1, "Active", "danger")],  style=dict(marginLeft="10px"))],
-            justify="center",
-            no_gutters=False), 
-        html.Br(),
-        dbc.Row([make_card(df_1, "Recovered", "success"), dbc.Col([make_card(df_1, "Deceased", "light")], style=dict(marginLeft="10px"))],
-                justify="center",
-                no_gutters=False)]
+        return make_graph(df, triggered_value), dbc.Col(get_card_layout(df[-1:]), align="center")
     else:
         df = district_data_daily(triggered_value)
-        df_1 = df[-1:]
-        return make_graph(df, triggered_value),[
-        dbc.Row([make_card(df_1, "Confirmed", "info"), dbc.Col([make_card(df_1, "Active", "danger")],  style=dict(marginLeft="10px"))],
-            justify="center",
-            no_gutters=False), 
-        html.Br(),
-        dbc.Row([make_card(df_1, "Recovered", "success"), dbc.Col([make_card(df_1, "Deceased", "light")], style=dict(marginLeft="10px"))],
-                justify="center",
-                no_gutters=False)]
-
-
+        return make_graph(df, triggered_value), dbc.Col(get_card_layout(df[-1:]), align="center")
 
 if __name__ == '__main__':
     app.run_server(dev_tools_hot_reload=True, debug=True)
