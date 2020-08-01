@@ -1,10 +1,9 @@
 import dash
-import flask
 import dash_bootstrap_components as dbc
 # import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-import os
+# import plotly.graph_objects as go
 
 from get_data import get_state_to_district_mapping, state_data_daily, district_data_daily
 from navbar import new_navbar
@@ -12,7 +11,7 @@ from total_stats import cards, cards_lower, get_card_layout
 from make_graph import make_graph, lower_graph, total_graph
 from select_graph_att import state, district
 
-app = dash.Dash(__name__, assets_folder=os.path.dirname(os.path.dirname(__file__)) + "/"+"/assets", external_stylesheets=[dbc.themes.DARKLY, {
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.DARKLY, {
     'href': 'https://use.fontawesome.com/releases/v5.8.1/css/all.css',
     'rel': 'stylesheet',
     'integrity': 'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf',
@@ -21,14 +20,6 @@ app = dash.Dash(__name__, assets_folder=os.path.dirname(os.path.dirname(__file__
 server = app.server
 
 app.title = "COVID-19 India Stats Tracker"
-
-# app.head = [
-#     html.Link(
-#         href="/assets/favicon.ico",
-#         rel='icon'
-#     ),
-# ]
-
 
 top_row = dbc.Container([
     dbc.Row([cards, dbc.Col(html.Div(), width=0.5), total_graph]),
@@ -44,27 +35,7 @@ second_row = dbc.Container([
 
 app.layout = html.Div(
     children=[
-        dbc.Navbar(
-    [
-        html.A(
-            # Use row and col to control vertical alignment of logo / brand
-            dbc.Row(
-                [
-                    dbc.Col(html.Img(src=app.get_asset_url("logo.png"), height="30px")),
-                    # dbc.Col(dbc.NavbarBrand("Navbar", className="ml-2")),
-                ],
-                align="center",
-                no_gutters=True,
-            ),
-            # href="https://plot.ly",
-        ),
-
-        dbc.NavbarBrand("Covid India Tracker", className="ml-2"),
-        # dbc.Collapse(email_bar, id="navbar-collapse", navbar=True)
-    ],
-    color="dark",
-    dark=True,
-),
+        new_navbar,
         html.Br(),
         top_row,
         html.Br(),
@@ -89,12 +60,6 @@ app.layout = html.Div(
 #     if n:
 #         return True
 #     return False
-
-# @server.route('/favicon.ico')
-# def favicon():
-#     return flask.send_from_directory(os.path.join(server.root_path, 'assets'),
-#                                'favicon.ico')
-
 
 
 @app.callback(
@@ -130,7 +95,6 @@ def update_graph(*args):
     else:
         df = district_data_daily(triggered_value)
         return make_graph(df, triggered_value), dbc.Col(get_card_layout(df[-1:]), align="center")
-
 
 if __name__ == '__main__':
     app.run_server(dev_tools_hot_reload=True, debug=True)
