@@ -46,6 +46,7 @@ def district_data_daily(district_name):
     district_data['Active'] = district_data['Confirmed'] - district_data['Recovered'] - district_data['Deceased']
     district_data.drop_duplicates(keep='first',inplace=True)
     district_data = district_data[district_data['District']==district_name]
+    district_data.drop_duplicates(subset=['Date'], keep='last', inplace=True)
     return district_data
 
 def state_data_daily(state_name):
@@ -54,6 +55,7 @@ def state_data_daily(state_name):
     state_data['Active'] = state_data['Confirmed'] - state_data['Recovered'] - state_data['Deceased'] - state_data['Other']
     state_data.drop_duplicates(keep='first',inplace=True)
     state_data = state_data[state_data['State']==state_name]
+    state_data.drop_duplicates(subset=['Date'], keep='last', inplace=True)
     return state_data
 
 def get_state_percent_contribution(state_name):
